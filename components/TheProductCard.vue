@@ -8,6 +8,7 @@
 
 <style scoped lang="scss">
 .product-card {
+  width: 100%;
   border-radius: 14px;
   border: 1px solid #c4c6c2;
   background: #fff;

@@ -1,37 +1,44 @@
 <script setup lang="ts">
+import UIText from "~/ui/UIText.vue";
+
 export interface Props {
   tag?: string;
-  color?: string;
-  fontSize?: string;
-  fontStyle?: string;
-  fontWeight?: string;
-  fontHeight?: string;
-  latterSpacing?: string;
+  to?: string;
+  href?: string;
+  uiTextProps: {
+    tag?: string;
+    color?: string;
+    fontSize?: string;
+    fontStyle?: string;
+    fontWeight?: string;
+    fontHeight?: string;
+    latterSpacing?: string;
+  };
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  tag: "p",
-  color: "#2C2C2C",
-  fontSize: "16",
-  fontStyle: "normal",
-  fontWeight: "400",
-  fontHeight: "145%",
+  tag: "NuxtLink",
+  uiTextProps: {
+    tag: "span",
+    color: "#1C80DC",
+    fontSize: "16px",
+    fontStyle: "normal",
+    fontWeight: "500",
+    fontHeight: "145%",
+  },
+});
+
+const component = computed(() => {
+  if (props.to || props.href) return defineNuxtLink({});
+  return "button";
 });
 </script>
 
 <template>
-  <component
-    :is="tag"
-    :style="{
-      color: props.color,
-      fontSize: props.fontSize,
-      fontStyle: props.fontStyle,
-      fontWeight: props.fontWeight,
-      fontHeight: props.fontHeight,
-      latterSpacing: props.latterSpacing,
-    }"
-  >
-    <slot />
+  <component :is="component" :to="props.to" :href="props.href">
+    <UIText v-bind="props.uiTextProps">
+      <slot />
+    </UIText>
   </component>
 </template>
 
